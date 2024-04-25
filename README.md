@@ -1,3 +1,4 @@
-# Cybersecurity-SOC-Training-Snort-Scripts-Notes-and-Bash-Notes
+# Snort-Scripts-Notes-and-Bash-Notes
+
 
 
