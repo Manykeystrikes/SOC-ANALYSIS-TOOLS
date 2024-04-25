@@ -1,4 +1,4 @@
 Hi
 
 
-![Kill Grep](Images/Kill%20and%20grep%20.png)
+![Kill Grep](Images/Kill and grep.png)
