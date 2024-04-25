@@ -2,6 +2,6 @@
 
 
 
-![Kill Grep](Kill and grep.png)
+![Kill Grep](Images/Kill%20and%20grep%20.png)
 
 
