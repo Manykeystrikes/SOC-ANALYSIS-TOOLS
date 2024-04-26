@@ -1,0 +1,11 @@
+#Test default reading options
+snort -r icmp-test.pcap
+
+sudo snort -c /etc/snort/snort.conf -q -r icmp-test.pcap -A console -n 10
+#Show muliple PACPs with [pcap-show]  
+sudo snort -c /etc/snort/snort.conf -q --pcap-list="icmp-test.pcap http2.pcap" -A console --pcap-show
+# Generate alerts
+sudo snort -c /etc/snort/snortv2.conf -A full -l . -r mx-1.pcap
+
+
+alert tcp any any <> any any (msg: "ID TEST"; id:35369; sid: 100001; rev:1;)
