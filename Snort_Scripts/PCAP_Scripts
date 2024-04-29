@@ -7,5 +7,48 @@ sudo snort -c /etc/snort/snort.conf -q --pcap-list="icmp-test.pcap http2.pcap" -
 # Generate alerts
 sudo snort -c /etc/snort/snortv2.conf -A full -l . -r mx-1.pcap
 
+sudo gedit local.rules
+#To edit local rules
+sudo gedit local.rules
+
+#To run the required rule
+snort -c local.rules -A full -l . -r task9.pcap
+
+alert tcp any any <> any any (msg: "SAME IP"; sameip; sid:35369; rev:1;)
+alert udp any any <> any any (msg: "SAME IP"; sameip; sid:35369; rev:1;)
 
 alert tcp any any <> any any (msg: "ID TEST"; id:35369; sid: 100001; rev:1;)
+
+alert tcp any 80 <> any any (msg:"src-TCP Port 80 found"; sid: 100001; rev:1;) 
+
+alert tcp any any <> any 80 (msg:"des-TCP Port 80 found"; sid: 100002; rev:1;) 
+
+# K ASCII	Log packets in ASCII format.
+-r	Reading option, read the dumped logs in Snort.
+-n	Specify the number of packets that will process/read. Snort will stop after reading the specified number of packets.
+##
+sudo snort -r snort.log.1714368223 -n 63
+#rules to detect "all TCP port 21"  traffic in the given pcap.
+alert tcp any 21 <> any any (msg:"Alert inboud Port 21"; sid: 100001; rev:1;)
+
+alert tcp any any <> any 21 (msg:"Alert outbound Port 21"; sid: 100002; rev:1;)
+#
+-c  Defining the configuration file.
+-T	Testing the configuration file.
+-N	Disable logging.
+-D	Background mode.
+-A	Alert modes;
+#
+
+#Investigate the log file.
+
+#What is the FTP service name?
+FTP runs on port 21 and we can find the FTP server name in code 220.
+ sudo snort -dvr snort.log.1680809739 -n 10 | grep -A1 '220'
+ sudo strings snort.log.1714374011 | grep 220 | head
+ 
+ #Write a rule to detect failed FTP login attempts in the given pcap.
+ #What is the number of detected packets?
+ alert tcp any any <> any 21 (msg:"login failure";content:530;sid:1000000000005)
+
+ alert tcp any any <> any any (msg:"login failure";content:530;sid:10000003; rev:1;)

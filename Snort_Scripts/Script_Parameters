@@ -51,14 +51,12 @@ The default action is to dump as tcpdump format in /var/log/snort
 -n	Specify the number of packets that will process/read. Snort will stop after reading the specified number of packets.
 ##
 #
--c	
-Defining the configuration file.
+-c  Defining the configuration file.
 
 -T	Testing the configuration file.
 -N	Disable logging.
 -D	Background mode.
--A	
-Alert modes;
+-A	Alert modes;
 
 full: Full alert mode, providing all possible information about the alert. This one also is the default mode; once you use -A and don't specify any mode, snort uses this mode.
 fast:  Fast mode shows the alert message, timestamp, source and destination IP, along with port numbers.
