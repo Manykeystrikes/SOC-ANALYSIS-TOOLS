@@ -51,4 +51,93 @@ FTP runs on port 21 and we can find the FTP server name in code 220.
  #What is the number of detected packets?
  alert tcp any any <> any 21 (msg:"login failure";content:530;sid:1000000000005)
 
- alert tcp any any <> any any (msg:"login failure";content:530;sid:10000003; rev:1;)
+ alert tcp any any <> any any (msg:"Login FTP Failure";content:"530 User";sid:10000003; rev:1;)
+
+#successful FTP login attempt prompts a default message with the pattern; "230 User"
+ alert tcp any any <> any any (msg:"Login FTP Success";content:"230 User";sid:100004; rev:1;)
+
+ #TP login attempt with a valid username and bad password prompts a default message with the pattern; "331 Password".
+ alert tcp any any <> any any (msg:"Login FTP Failure";content:"331 Password";sid:100005; rev:1;)
+
+# You can use the "content" filter more than one time.
+alert tcp any any <> any any (msg:"Login FTP Failure";content:"331 Password";content:"Administrator";sid:100005; rev:1;)
+
+#Writing IDS Rules 
+# rule to detect the PNG file in the given pcap.
+alert tcp any any <> any any (msg:"Detect PNG Files";content:"|89 50 4E 47 0D 0A 1A 0A|"; depth:8;sid:10000006)
+#(alert tcp any ayn <> any any)## - rule section specifies the network traffic (any tcp traffic from any IP to DIPA and port )
+#(msg:"Detect PNG Files";)## custom alert alinged with business policy
+#(content:"|89 50 4E 47 0D 0A 1A 0A|"; depth:8;)## contect is used to identify hexadeciaml values in this casue the PNG file. To reduce 
+#To reduce load the identifier "depth" is used the number is the number of bytes searched. 
+
+sudo strings ftp-png-gif.pacp
+
+
+sudo snort -c local.rules -A full -l . -r ftp-png-gif.pcap
+#to look in a log file 
+sudo snort -d -r snort.log.1714450257 
+        # -d is dump 
+        # -r Reading option, read the dumped logs in Snort 
+
+#Check for the MIME type/Magic Number.
+#rule to detect the GIF file in the given pcap.
+alert tcp any any <> any any (msg:"Detect GIF File";content:"GIF89a";depth:6;sid:100005; rev:1;)
+
+## Create IDS Rules for torrent metafiles in the traffic
+#Torrent metafiles have a common name extension (.torrent). Try to filter the given pattern in the TCP traffic.
+alert tcp any any -> any any (msg:"Torrent Files Identified"; content:".torrent"; nocase;sid:10000000011)
+# nocase removes case sensetivity 
+
+#troubleshoot rule syntax errors
+#ruleset with the following command structure;
+sudo snort -c local-X.rules -r mx-1.pcap -A console
+nano local-1.rules
+udo snort -c local-1.rules -r mx-1.pcap -A console
+sudo snort -c local-1.rules -A full -l. -r mx-1.pcap 
+alert tcp any 3372 -> any any (msg: "Troubleshooting 1"; sid:1000001; rev:1;)
+
+
+alert icmp any any -> any any (msg: "ICMP Packet Found"; sid:1000001; rev:1;)
+alert tcp any any -> any 80,443 (msg: "HTTPX Packet Found"; sid:1000001; rev:1;)
+
+alert icmp any any -> any any (msg: "ICMP Packet Found"; sid:1000001; rev:1;)
+alert tcp any 80,443 -> any any (msg: "HTTPX Packet Found"; sid:1000002; rev:2;)
+#Direction and colons! (->)#
+alert icmp any any <> any any (msg: "ICMP Packet Found"; sid:1000001; rev:1;)
+alert icmp any any -> any any (msg: "Inbound ICMP Packet Found"; sid:1000002; rev:2;)
+alert tcp any any -> any 80,443 (msg: "HTTPX Packet Found"; sid:1000003; rev:3;)
+#Use the capitals or nocase
+alert tcp any any <> any 80  (msg: "GET Request Found"; content:"|67 65 74|";nocase; sid: 100001; rev:1;)
+# Wikipedia on the list of file signatures, the hex code is of an “html” file. So we will add “msg:“html detected””
+alert tcp any any <> any 80  (msg:"html detected";content:"|2E 68 74 6D 6C|"; sid: 100001; rev:1;)
+
+#Using External Rules (MS17-010)
+alert tcp any any -> any 445 (msg: "Exploit Detected!"; flow: to_server, established; content: "IPC$";sid: 20244225; rev:3;)
+
+
+
+sudo snort -d -r snort.log.1714536057
+
+#CVSS v2 score of the MS17-010 vulnerability\
+#cvss 2.0 Severity and Metrics: NIST: Base Score: 9.3 HIGH Vector: NVD Analysts use publicly available information to associate vector strings and CVSS scores. We also display any CVSS information provided within the CVE List from the CNA.
+#NVD - CVE-2017-0144
+#nvd.nist.gov/vuln/detail/CVE-2017-0144
+#nvd.nist.gov/vuln/detail/CVE-2017-0144
+
+#https://www.bing.com/aclick?ld=e8GfOvqRgQXVXzK4MSYEz4rTVUCUyz2nyUk3B5tw77dE8MkK2UCTYUz0SA0okX4FA4qiRSOLttnU0HFfl_XGer_jPbJ7ZJM8Fof9lygGYBeijfGcDO36kFcyTR7lwOhdwHjTPkAp6WbFZk0h0l0LP_-TO-Ew7FIQ5kC8ZU8gWE0bzlZOs1Ht153UbqkTiv6gDAin7XZA&u=aHR0cHMlM2ElMmYlMmZ3d3cudGVuYWJsZS5jb20lMmZscCUyZmNhbXBhaWducyUyZjIyJTJmdHJ5LXRlbmFibGUtaW8lM2Z1dG1fY2FtcGFpZ24lM2RiaW5nLSU3YjYwMjEwNjkyNyU3ZC0lN2IxMzA3MzE5NzUzMzA4NzMxJTdkLSU3YiU3ZF8wMDAyOTYxMF9meTI0JTI2dXRtX3Byb21vdGVyJTNkdGVuYWJsZS1jb3JlLXZtLTAwMDI5NjEwJTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fdGVybSUzZGN2c3MlMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2dlbyUzZGFwYWMlMjZtc2Nsa2lkJTNkNWVkYWExOWM1MzU3MTRjMWY5MzFjN2FkZWNhZThlYWU&rlid=5edaa19c535714c1f931c7adecae8eae&ntb=1
+#https://www.bing.com/aclick?ld=e8GfOvqRgQXVXzK4MSYEz4rTVUCUyz2nyUk3B5tw77dE8MkK2UCTYUz0SA0okX4FA4qiRSOLttnU0HFfl_XGer_jPbJ7ZJM8Fof9lygGYBeijfGcDO36kFcyTR7lwOhdwHjTPkAp6WbFZk0h0l0LP_-TO-Ew7FIQ5kC8ZU8gWE0bzlZOs1Ht153UbqkTiv6gDAin7XZA&u=aHR0cHMlM2ElMmYlMmZ3d3cudGVuYWJsZS5jb20lMmZscCUyZmNhbXBhaWducyUyZjIyJTJmdHJ5LXRlbmFibGUtaW8lM2Z1dG1fY2FtcGFpZ24lM2RiaW5nLSU3YjYwMjEwNjkyNyU3ZC0lN2IxMzA3MzE5NzUzMzA4NzMxJTdkLSU3YiU3ZF8wMDAyOTYxMF9meTI0JTI2dXRtX3Byb21vdGVyJTNkdGVuYWJsZS1jb3JlLXZtLTAwMDI5NjEwJTI2dXRtX3NvdXJjZSUzZGJpbmclMjZ1dG1fdGVybSUzZGN2c3MlMjZ1dG1fbWVkaXVtJTNkY3BjJTI2dXRtX2dlbyUzZGFwYWMlMjZtc2Nsa2lkJTNkNWVkYWExOWM1MzU3MTRjMWY5MzFjN2FkZWNhZThlYWU&rlid=5edaa19c535714c1f931c7adecae8eae&ntb=1
+
+#to investigate the log4j exploitation.
+sudo snort -c local.rules -r log4j.pcap -A full -l .
+
+#rule to detect packet payloads between 770 and 855 bytes.
+alert tcp any any <> any any  (msg:"Payload detected 770<>855";dsize:770<>855; sid: 10001; rev:1;)
+#s
+sudo snort -c local.rules -A full -l . -r log4j.pcap, and press enter to run it.
+
+cat alert | grep "FOX-SRT"
+
+https://cyberchef.org/
+KGN1cmwgLXMgNDUuMTU1LjIwNS4yMzM6NTg3NC8xNjIuMC4yMjguMjUzOjgwfHx3Z2V0IC1xIC1PLSA0NS4xNTUuMjA1LjIzMzo1ODc0LzE2Mi4wLjIyOC4yNTM6OD
+
+https://www.indusface.com/blog/apache-log4j-remote-code-execution-vulnerability-cve-2021-44228/
