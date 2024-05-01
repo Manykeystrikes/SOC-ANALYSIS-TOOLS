@@ -41,8 +41,7 @@ Parameter	Description
 #
 
 Parameter	Description
--l	
-Logger mode, target log and alert output directory. Default output folder is /var/log/snort
+-l	Logger mode, target log and alert output directory. Default output folder is /var/log/snort
 
 The default action is to dump as tcpdump format in /var/log/snort
 
