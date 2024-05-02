@@ -24,14 +24,7 @@ Parameter	Description
 -T	Snort's self-test parameter, you can test your setup with this parameter.
 -q	Quiet mode prevents snort from displaying the default banner and initial information about your setup
 ##
-#
-Parameter	Description
--V / --version	This parameter provides information about your instance version.
--c	Identifying the configuration file
--T	Snort's self-test parameter, you can test your setup with this parameter.
--q	Quiet mode prevents snort from displaying the default banner and initial information about your setup.
-##
-Parameter	Description
+#Parameter	Description
 -v	Verbose. Display the TCP/IP output in the console.
 -d	Display the packet data (payload).
 -e	Display the link-layer (TCP/IP/UDP/ICMP) headers. 
@@ -43,40 +36,31 @@ Parameter	Description
 Parameter	Description
 -l	Logger mode, target log and alert output directory. Default output folder is /var/log/snort
 
-The default action is to dump as tcpdump format in /var/log/snort
+#The default action is to dump as tcpdump format in /var/log/snort
 
 -K ASCII	Log packets in ASCII format.
 -r	Reading option, read the dumped logs in Snort.
 -n	Specify the number of packets that will process/read. Snort will stop after reading the specified number of packets.
-##
-#
--c  Defining the configuration file.
 
+
+-c  Defining the configuration file.
 -T	Testing the configuration file.
 -N	Disable logging.
 -D	Background mode.
 -A	Alert modes;
 
-full: Full alert mode, providing all possible information about the alert. This one also is the default mode; once you use -A and don't specify any mode, snort uses this mode.
-fast:  Fast mode shows the alert message, timestamp, source and destination IP, along with port numbers.
-
-console: Provides fast style alerts on the console screen.
-
-cmg: CMG style, basic header details with payload in hex and text format.
-
-none: Disabling alerting.
-##
+#full: Full alert mode, providing all possible information about the alert. This one also is the default mode; once you use -A and don't specify any mode, snort uses this mode.
+#fast:  Fast mode shows the alert message, timestamp, source and destination IP, along with port numbers.
+#console: Provides fast style alerts on the console screen.
+#cmg: CMG style, basic header details with payload in hex and text format.
+#none: Disabling alerting.
 #investigate PCAPs with Snort
+#Capabilities of Snort are not limited to sniffing, logging and detecting/preventing the threats. PCAP read/investigate mode helps you work with pcap files. Once you have a pcap file and process it with Snort, you will receive default traffic statistics with alerts depending on your ruleset.
+#Reading a pcap without using any additional parameters we discussed before will only overview the packets and provide statistics about the file. In most cases, this is not very handy. We are investigating the pcap with Snort to benefit from the rules and speed up our investigation process by using the known patterns of threats. 
+#Note that we are pretty close to starting to create rules. Therefore, you need to grasp the working mechanism of the Snort, learn the discussed parameters and begin combining the parameters for different purposes.
+# PCAP mode parameters are explained in the table below;
 
-Capabilities of Snort are not limited to sniffing, logging and detecting/preventing the threats. PCAP read/investigate mode helps you work with pcap files. Once you have a pcap file and process it with Snort, you will receive default traffic statistics with alerts depending on your ruleset.
-
-Reading a pcap without using any additional parameters we discussed before will only overview the packets and provide statistics about the file. In most cases, this is not very handy. We are investigating the pcap with Snort to benefit from the rules and speed up our investigation process by using the known patterns of threats. 
-
-Note that we are pretty close to starting to create rules. Therefore, you need to grasp the working mechanism of the Snort, learn the discussed parameters and begin combining the parameters for different purposes.
-
-PCAP mode parameters are explained in the table below;
-
-Parameter	Description
+$Parameter	Description
 -r / --pcap-single=	Read a single pcap
 --pcap-list=""	Read pcaps provided in command (space separated).
 --pcap-show	Show pcap name on console during processing.
