@@ -10,3 +10,102 @@ NetworkMiner makes it easy to perform advanced Network Traffic Analysis (NTA) by
 
 NetworkMiner has, since the first release in 2007, become a popular tool among incident response teams as well as law enforcement. NetworkMiner is today used by companies and organizations all over the world."
 
+Forensics
+- recoding packets - the function of gaining access to data transmitted by listening and investigating live and recorded trafffic 
+- gathering evidence and identifing potential problems
+
+-Task is to identify hosts communication related to time,frequeny, protocol, application and data.
+The 5W;
+Who (Source IP and port)
+What (Data/payload)
+Where (Destination IP and port)
+When (Time and data)
+Why (How/What happened)
+
+Common task for forensics
+
+-Network discovery; connecte3d devices, rogue hoasts and network load
+- Packets reasssembling; packet usage 
+- Data leakage detection; transfer rates for host and sestination address
+- Anonaly and malicious activity detection
+
+Advanatage if Network Forensics 
+- Evidence within networks; the ease of evidence collection 
+- Ease of data/evidence collection without creating noise; earsier than EDR (Endpoint Detection Response), EPP(Endpoint protection platform)
+-Hard to destroy
+-Availabilty of log sources- aloows the information to be correlated _ chain of events
+
+Sources of Network Forensics Evidence
+
+
+
+Capturing proper network traffic requires knowledge and tools. Usually, there is a single chance of gathering the live traffic as evidence. There are multiple evidence resources to gather network forensics data.
+
+TAPS
+InLine Devices
+SPAN Ports
+Hubs
+Switches
+Routers
+DHCP Servers
+Name Servers
+Authentication Servers
+Firewalls
+Web Proxies
+Central Log Servers
+Logs (IDS/IPS, Application, OS, Device)
+Primary Purposes of Network Forensics 
+
+
+
+There are two primary purposes in Network Forensics investigations.
+
+ 
+
+Security Operations (SOC): Daily security monitoring activities on system performance and health, user behaviour, and security issues.
+Incident Handling/Response and Threat Hunting: During/Post-incident investigation activities on understanding the reason for the incident, detecting malicious and suspicious activity, and investigating the data flow content.
+
+Investigated Data Types in Network Forensics
+
+
+
+There are three main data types investigated in Network Forensics
+
+ 
+
+Live Traffic
+Traffic Captures (full packet captures and network flows)
+Log Files
+NetworkMiner is capable of processing and handling packet pictures and live traffic. Therefore, we will focus on live and captured traffic in this room. Both of these data sources are valuable for forensics investigations. 
+
+
+
+Traffic investigation actions fall under network forensics's "Traffic Analysis" subdomain. However, the main purpose of the NetworkMiner is to investigate the overall flow/condition of the limited amount of traffic, not for a long in-depth live traffic investigation. Therefore we will focus on how to use NetworkMiner for this purpose. In-depth traffic and packet analysis will be covered in the rooms below;
+
+Wireshark; https://tryhackme.com/room/wireshark
+Tcpdump (available soon!)
+Tshark (available soon!)
+
+NetworkMiner
+
+NetworkMiner in a Nutshell
+
+
+
+Capability	                    Description
+Traffic sniffing            It can intercept the traffic, sniff it, and collect and log packets that pass through the network.
+Parsing PCAP files          It can parse pcap files and show the content of the packets in detail.
+Protocol analysis           It can identify the used protocols from the parsed pcap file.
+OS fingerprinting           It can identify the used OS by reading the pcap file. This feature strongly relies on Satori and p0f.
+ File Extraction            It can extract images, HTML files and emails from the parsed pcap file.
+Credential grabbing         It can extract credentials from the parsed pcap file.
+Clear text keyword parsing  It can extract cleartext keywords and strings from the parsed pcap file.
+
+Operating Modes
+
+
+
+
+#Sniffer Mode: Although it has a sniffing feature, it is not intended to use as a sniffer. The sniffier feature is available only on Windows. However, the rest of the features are available in Windows and Linux OS. Based on experience, the sniffing feature is not as reliable as other features. Therefore we suggest not using this tool as a primary sniffer. Even the official description of the tool mentions that this tool is a "Network Forensics Analysis Tool", but it can be used as a "sniffer". In other words, it is a Network Forensic Analysis Tool with but has a sniffer feature, but it is not a dedicated sniffer like Wireshark and tcpdump. 
+#Packet Parsing/Processing: NetworkMiner can parse traffic captures to have a quick overview and information on the investigated capture. This operation mode is mainly suggested to grab the "low hanging fruit" before diving into a deeper investigation.
+
