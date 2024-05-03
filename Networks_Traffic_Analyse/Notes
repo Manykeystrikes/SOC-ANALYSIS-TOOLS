@@ -109,3 +109,122 @@ Operating Modes
 #Sniffer Mode: Although it has a sniffing feature, it is not intended to use as a sniffer. The sniffier feature is available only on Windows. However, the rest of the features are available in Windows and Linux OS. Based on experience, the sniffing feature is not as reliable as other features. Therefore we suggest not using this tool as a primary sniffer. Even the official description of the tool mentions that this tool is a "Network Forensics Analysis Tool", but it can be used as a "sniffer". In other words, it is a Network Forensic Analysis Tool with but has a sniffer feature, but it is not a dedicated sniffer like Wireshark and tcpdump. 
 #Packet Parsing/Processing: NetworkMiner can parse traffic captures to have a quick overview and information on the investigated capture. This operation mode is mainly suggested to grab the "low hanging fruit" before diving into a deeper investigation.
 
+NetworkMiner also can receive Pcaps over IP. This room suggests using NetworkMiner as an initial investigation tool for low hanging fruit grabbing and traffic overview. Therefore, we will skip receiving Pcaps over IP in this room. You can read on receiving Pcap over IP from here and here. 
+
+Hosts
+
+The "hosts" menu shows the identified hosts in the pcap file. This section provides information on;
+
+IP address
+MAC address
+OS type
+Open ports
+Sent/Received packets
+Incoming/Outgoing sessions
+Host details
+OS fingerprinting uses the Satori GitHub repo and p0f, and the MAC address database uses the mac-ages GitHub repo.
+
+You can sort the identified hosts by using the sort menu. You can change the colour of the hosts as well. Some of the features (OSINT lookup) are available only in premium mode. The right-click menu also helps you to copy the selected value.
+
+Sessions
+The session menu shows detected sessions in the pcap file. This section provides information on;
+
+Frame number
+Client and server address
+Source and destination port
+Protocol
+Start time
+
+You can search for keywords inside frames with the help of the filtering bar. It is possible to filter specific columns of the session menu as well. This menu accepts four types of inputs;
+
+"ExactPhrase"
+"AllWords"
+"AnyWord"
+"RegExe"
+
+
+DNS
+
+The DNS menu shows DNS queries with details. This section provides information on;
+
+Frame number
+Timestamp
+Client and server
+Source and destination port 
+IP TTL
+DNS time
+Transaction ID and type
+DNS query and answer
+Alexa Top 1M
+
+Credentials
+
+The credentials menu shows extracted credentials and password hashes from investigated pcaps. You can use Hashcat (GitHub) and John the Ripper (GitHub) to decrypt extracted credentials. NetworkMiner can extract credentials including;
+
+Kerberos hashes
+NTLM hashes
+RDP cookies
+HTTP cookies
+HTTP requests
+IMAP
+FTP
+SMTP
+MS SQL
+
+Files
+
+The file menu shows extracted files from investigated pcaps. This section provides information on;
+
+Frame number
+Filename
+Extension
+Size
+Source and destination address
+Source and destination port
+Protocol
+Timestamp
+Reconstructed path
+Details
+Some features (OSINT hash lookup and sample submission) are available only in premium mode. The search bar is available here as well. The right-click menu is helpful in this part as well. You can easily open files and folders and view the file details in-depth.
+
+Parameters
+
+The file menu shows extracted parameters from investigated pcaps. This section provides information on;
+
+Parameter name
+Parameter value
+Frame number
+Source and destination host
+Source and destination port
+Timestamp
+Details
+
+Keywords
+
+The file menu shows extracted keywords from investigated pcaps. This section provides information on;
+
+Frame number
+Timestamp
+Keyword
+Context
+Source and destination host
+source and destination port
+How to filter keywords;
+
+Add keywords
+Reload case files!
+Note: You can filter multiple keywords in this section; however, you must reload the case files after updating the search keywords. Keyword search investigates all possible data in the processed pcaps.
+
+Messages
+
+The messages menu shows extracted emails, chats and messages from investigated pcaps. This section provides information on;
+
+Frame number
+Source and destination host 
+Protocol
+Sender (From)
+Receiver (To)
+Timestamp
+Size
+Once you filter the traffic and get a hit, you will discover additional details like attachments and attributes on the selected message. Note that the search bar is available here as well. The right-click menu is available here. You can use the built-in viewer to investigate overall information and the "open file" option to explore attachments.
+
