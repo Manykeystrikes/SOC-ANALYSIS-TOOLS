@@ -1,2 +1,9 @@
 https://docs.zeek.org/en/current/script-reference/log-files.html
 https://corelight.com/about-zeek/zeek-data
+
+https://docs.zeek.org/en/master/frameworks/index.html
+
+#How the FTP protocol works and the default response codes. If you don't know these details, please refer to
+https://datatracker.ietf.org/doc/html/rfc765
+
+https://docs.zeek.org/en/master/frameworks/signatures.html
