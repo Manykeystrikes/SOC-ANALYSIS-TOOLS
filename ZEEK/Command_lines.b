@@ -79,8 +79,18 @@ cat signatures.log | head -n 20
 #Script Notes\ZEEK\Images\sid_id wc -l.png
 cat signatures.log | zeek-cut sig_id | grep "ftp-brute" | wc -l
 
+-C   Ignoring checksum errors
+-r to read the file 
+zeek -C -r bigFlows.pcap
+cat dhcp.log | zeek-cut host_name | sort | uniq
+cat dhcp.log | zeek-cut host_name | sort | uniq | wc -l
 
 
+cat dhcp.log | zeek-cut domain | sort | uniq
 
+#Zeek has base scripts located in "/opt/zeek/share/zeek/base". You can load all local scripts identified in your "local.zeek" file. 
+#Note that base scripts cover multiple framework functionalities.
+# You can load all base scripts by easily running the local command.
+zeek -C -r ftp.pcap /opt/zeek/share/zeek/policy/protocols/ftp/detect-bruteforcing.zeek 
 
-
+cat notice.log | zeek-cut ts note msg 

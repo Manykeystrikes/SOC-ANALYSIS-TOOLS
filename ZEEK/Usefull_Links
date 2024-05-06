@@ -7,3 +7,21 @@ https://docs.zeek.org/en/master/frameworks/index.html
 https://datatracker.ietf.org/doc/html/rfc765
 
 https://docs.zeek.org/en/master/frameworks/signatures.html
+
+#find and read more on the prebuilt scripts and frameworks by visiting Zeek's online book
+https://docs.zeek.org/en/master/frameworks/index.html
+
+#$Investigate the ftp-brute.pcap file with "/opt/zeek/share/zeek/policy/protocols/ftp/#detect-bruteforcing.zeek" script. Investigate the notice.log file. What is the total #number of brute-force detections?
+
+~zeek -C -r ftp-brute.pcap /opt/zeek/share/zeek/policy/protocols/ftp/detect-bruteforcing.zeek 
+
+~cat notice.log  |zeek-cut note | grep "FTP::Bruteforcing" | wc -l
+
+# "-c"count the number of occurences for each unique value
+~cat notice.log | zeek-cut msg | uniq -c 
+
+#What is the name of the identified City?
+~cat conn.log |zeek-cut id.resp_h geo.resp.city | grep -v -e "-" | uniq -c
+
+
+~zeek -C -r case2.pcap  sumstats-counttable.zeek
