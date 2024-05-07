@@ -1,0 +1,42 @@
+
+#mple.pcap" file and look at the details of the first DNS log 
+#that appear on the dashboard. 
+#What is the "qclass_name"?
+_path=="dns" | cut qclass_name | uniq
+
+#TATS packet log that is visible on the dashboard. What is the "reassem_tcp_size"?
+_path=="stats" | cut reassem_tcp_size
+
+_path=="files"  | cut filename| uniq
+
+#Investigate the conn logfile. What is the number of the identified city names?
+_path=="conn"| cut geo.resp.city | sort | uniq  -c
+
+#Investigate the Suricata alerts. What is the Signature id of 
+#the alert category "Potential Corporate Privacy Violation
+event_type=="alert" | cut alert.signature, alert.category, alert.signature_id | uniq
+
+#What is the name of the file downloaded from the CobaltStrike C2 connection?
+_path=="http" | cut host, uri | uniq -c | 104.168.44.45
+
+#What is the number of CobaltStrike connections using port 443?
+_path=="conn" id.resp_h==104.168.44.45 id.resp_p==443 | count() by id.resp_p
+
+  _path=="http" | cut id.orig_h, id.resp_h, id.resp_p, method, host, uri | uniq -c
+
+going to look at the conn path, then pipe that into the IP address for CobaltStrike. 
+From the IP address, we then pipe the results into the cut function. 
+The cut function then removes the id.orig_h, id.resp_p, id.resp_h to display in the main field, 
+the results from cut are then piped into sort. Then Sort will then sort the results 
+so far numerically, then those results are piped through uniq -c. 
+Uniq will then remove any time an instance appears more than once., 
+leaving one instance only, the -c will then show how many times the instance appears.
+ Pressing enter will then run the filtering command.
+
+  _path=="conn" | 104.168.44.45 | cut id.orig_h, id.resp_p, id.resp_h | sort | uniq -c
+
+#many connections used port 19999?
+  _path=="conn" id.resp_p==19999 | count() by id.resp_p
+
+#What is the name of the service used by port 6666?
+  _path=="conn" id.resp_p==6666 | cut service | uniq -c 
