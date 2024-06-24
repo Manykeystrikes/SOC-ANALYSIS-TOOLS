@@ -1,0 +1,3 @@
+index=botsv1 imreallynotbatman.com sourcetype="stream:http" uri="/joomla/administrator/index.php" dest_ip="192.168.250.70" form_data=*Username*passwd* http_method=POST
+|  rex field=form_data "passwd=(?<userpassword>\w+)"
+| table_time src_ip dest_ip form_data userpassword
