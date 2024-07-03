@@ -35,3 +35,19 @@ include all current processes and terminated processes with their exit times.
 
   search for strings, patterns, and compound rules against a rule set. You can either use a YARA file as an argument or list rules within the command line.
   - python3 vol.py -f <file> windows.yarascan
+
+
+  python3 /opt/volatility3/vol.py -f 'Investigation-1.vmem' windows.info
+
+
+    What user-agent was employed by the adversary
+  vol.py -f <dump> -o /dir/to/store_dump/ windows.memmap.Memmap --pid <suspicious PID> --dump Once the dump is stored use, strings *.dmp | grep -i "user-agent"
+ 
+ - python3 /opt/volatility3/vol.py -f  'Investigation-1.vmem' -o /home/thmanalyst windows.memmap.Memmap --pid 1640 --dump
+
+  suspicious domains
+ - strings /home/thmanalyst/*.dmp | grep -i “user-agent”
+
+
+ - strings /home/thmanalyst/ *.dmp | grep "http" or strings /home/thmanalyst/*.dmp | grep "chase"
+
