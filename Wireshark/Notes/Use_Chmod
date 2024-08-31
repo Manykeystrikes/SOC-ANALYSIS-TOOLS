@@ -1,0 +1,7 @@
+The adversary attempted to change the executing permissions of the 
+uploaded file using the chmod command. Specifically, they used the 
+following command: chmod 77712. This command assigns read, write,
+and execute permissions to the file for all users (owner, group, and others).
+However, it’s important to note that granting such 
+broad permissions can pose security risks, so it’s advisable to 
+be cautious when using it. 

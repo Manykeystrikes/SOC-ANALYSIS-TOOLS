@@ -1,0 +1,18 @@
+
+#wevtutil.exe first. Per Microsoft, the wevtutil.exe tool "enables you to retrieve information about event logs and publishers. You can also use this command to install and 
+#uninstall event manifests, to run queries, and to export, archive, and clear logs."
+wevtutil.exe./?
+ https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/wevtutil
+
+ Notice at the bottom of the above snapshot, wevtutil COMMAND /?. This will provide additional information specific to a command. 
+ We can use it to get more information on the command qe (query-events). 
+
+# Use PowerShell. Pipe the 'el' command to the PowerShell Measure-Object cmdlet
+wevtutil el | Measure-Object
+
+#What event files would be read when using the query-events command?
+ wevtutil qe /?
+ 
+Link below nfor research 
+ https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/wevtutil
+
