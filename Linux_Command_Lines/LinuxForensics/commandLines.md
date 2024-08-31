@@ -26,3 +26,8 @@ press ESC :q! <enter>
 ls -la <file path> eg bin/os-update-sh
 #to find the time, when modified Accessed  
 stat <directory/fileName eg:(/bin/os-update.sh)
+
+![alt text](Images/accessFilePaths.png)
+
+# pulls the request file <os-update.sh> from the bin directory
+root@ip-10-10-210-111:~# cat /bin/os-update.sh
