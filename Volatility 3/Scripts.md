@@ -51,3 +51,28 @@ include all current processes and terminated processes with their exit times.
 
  - strings /home/thmanalyst/ *.dmp | grep "http" or strings /home/thmanalyst/*.dmp | grep "chase"
 
+# extracting the information about the image 
+vol.exe -f vol.exe -f <C:\Users\Administrator\Desktop\output\HibRec_2024-09-10-04-41-18-24024\ActiveMemory.bin> windows.info.Info
+
+# extract the information about the running processes during hibernation
+ vol.exe -f vol.exe -f <C:\Users\Administrator\Desktop\output\HibRec_2024-09-10-04-41-18-24024\ActiveMemory.bin> windows.pslist.PsList
+
+# following command to extract the process tree information
+  vol.exe -f vol.exe -f <C:\Users\Administrator\Desktop\output\HibRec_2024-09-10-04-41-18-24024\ActiveMemory.bin> windows.pstree.PsTree
+#ollowing command to see a list of commands
+   vol.exe -f vol.exe -f <C:\Users\Administrator\Desktop\output\HibRec_2024-09-10-04-41-18-24024\ActiveMemory.bin> windows.cmdline.CmdLine
+
+
+   
+Dump type
+Information
+Small memory dump
+This option creates a small memory dump file (minidump) containing minimal information about the system state during the crash.
+Kernel Memory Dump
+This option creates a dump file that contains all the kernel memory contents at the time of the crash. Kernel memory dumps can be significantly larger than small memory dumps.
+Complete Memory Dump
+This option creates a dump file that contains all the contents of the physical memory (RAM) at the time of the crash. Complete memory dumps are the largest type of dump files.
+Automatic memory dump
+This option is similar to the kernel memory dump but is automatically triggered when Windows detects a system crash. The size of the dump file is dynamically adjusted based on the amount of RAM installed in the system, ensuring enough space is available to capture the necessary information.
+Active Memory Dump
+This option contains the memory dump of the active users and kernel modes.
