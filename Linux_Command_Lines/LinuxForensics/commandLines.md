@@ -82,3 +82,7 @@ This command in the current state of volatility3 can be very unstable, particula
 The last plugin we will cover is dlllist. This plugin will list all DLLs associated with processes at the time of extraction. This can be especially useful once you have done further analysis and can filter output to a specific DLL that might be an indicator for a specific type of malware you believe to be present on the system.
 
 Syntax: python3 vol.py -f <file> windows.dlllist
+
+# Link:https://stackoverflow.com/questions/2898463/using-grep-to-find-all-emails
+
+grep -rIhEo "\b[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+\b" /etc/* <directory Path <Downloads/Update365>>
