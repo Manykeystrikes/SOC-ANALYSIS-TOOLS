@@ -12,6 +12,9 @@ dns.qry.type == 1&&
 #
 dns.flags.response==1
 
+#
+dns.resp.name == <domain.name.xyz>
+
 
 #List all HTTP packets where packets' "server" field contains the "Apache" keyword.
 http.server contains "Apache"
