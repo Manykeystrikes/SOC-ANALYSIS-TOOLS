@@ -1,19 +1,13 @@
 
-#
+-http.request.method=="GET"
 
-http.request.method=="GET"
+-&&tcp.port==80
 
-#
-&&tcp.port==80
+-dns.qry.type == 1&&
 
-#
-dns.qry.type == 1&&
+-dns.flags.response==1
 
-#
-dns.flags.response==1
-
-#
-dns.resp.name == <domain.name.xyz>
+-dns.resp.name == <domain.name.xyz>
 
 
 #List all HTTP packets where packets' "server" field contains the "Apache" keyword.
